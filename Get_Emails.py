@@ -6,10 +6,12 @@
 
 # IMPORTS
 from Email_Object import Email # Email class to be used
+
 import imaplib                 # Network Connection
 import email                   # Email Parsing 
 import getpass                 # Password Protection    
-import re                      # Regular Expressions 
+import re                      # Regular Expressions
+import shelve                  # Databse Management
 
 # PRE: Login Information from User
 # POST: Connection to EMail Sever
