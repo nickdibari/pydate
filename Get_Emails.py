@@ -1,5 +1,3 @@
-#! usr/bin/python2.7
-
 #* PYTHON EMAIL PROJECT                 *#
 #* Get_Emails.py                        *#
 #* Fordham CSS September 25             *#
