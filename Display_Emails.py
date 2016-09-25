@@ -29,7 +29,26 @@ def Search(db):
 # PRE: Database connection
 # POST: Selected Emails deleted from Database
 def Delete(db):
-	pass
+ #Print list of emails
+	for key, value, in db.iteritems()
+		print("Key term: " + key + "Sender: " + value.sender + "Subject" + value.subject)
+
+	choice=input("Please enter the key term of the email to delete: ")
+
+	#Get email to delete
+    email=db.get(choice)
+
+    #Print quote to delete
+    print("Are you sure you want to do delete the following email? (y/n): ")
+    print(choice + ": ")
+    print("Sender: " + db[choice].sender + "Subject: " + db[choice].subject)
+    print("-----------------------------------------------")
+    confirm = input()
+
+    #Delete quote from dictionary
+    if confirm == 'y' or confirm == 'Y':
+        del db[choice]
+        print("Deleted\n")
 
 # PRE: Database connection
 # POST: Database connection closed
