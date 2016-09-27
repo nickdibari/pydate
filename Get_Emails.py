@@ -14,12 +14,18 @@ import re                      # Regular Expressions
 import shelve                  # Databse Management
 
 # PRE: Login Information from User
-# POST: Connection to EMail Sever
+# POST: Connection to EMail Sever (connection)
 # TODO: How to create connection to server?
 # TODO: How to store user login?
 def Set_Connection():
     pass
     
+# PRE: Database Exists
+# POST: Database connection (db)
+def DB_Connect():
+    db = shelve.open('Emails.db')
+    return db
+
 # PRE: Connection with Server
 # POST: List of Emails to Prioritize
 def Get_Emails(RAW_EMAILS):
@@ -57,4 +63,5 @@ def Main():
     pass
 
 if __name__ == '__main__':
+    db = DB_Connect()
     Main()
