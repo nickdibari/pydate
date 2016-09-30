@@ -14,8 +14,7 @@ import re                      # Regular Expressions
 import shelve                  # Databse Management
 
 # PRE: Login Information from User
-<<<<<<< HEAD
-# POST: Connection to EMail Sever
+# POST: Connection to EMail Sever (connection)
 # TODO: How to store user login?
 def Set_Connection():
     user = raw_input('Please enter your email address: ')
@@ -28,19 +27,12 @@ def Set_Connection():
     except Exception as e:
         print('Hit error')
         print e
-=======
-# POST: Connection to EMail Sever (connection)
-# TODO: How to create connection to server?
-# TODO: How to store user login?
-def Set_Connection():
-    pass
     
 # PRE: Database Exists
 # POST: Database connection (db)
 def DB_Connect():
     db = shelve.open('Emails.db')
     return db
->>>>>>> 9fed9a9c03e2913b73252337425ce8dec7466c5c
 
 # PRE: Connection with Server
 # POST: List of Emails to Prioritize
@@ -80,8 +72,13 @@ def Main():
 
 if __name__ == '__main__':
 <<<<<<< HEAD
+<<<<<<< HEAD
     connection = Set_Connection()
     Main()
+=======
+    db = DB_Connect()
+    Main()
+>>>>>>> 9fed9a9c03e2913b73252337425ce8dec7466c5c
 =======
     db = DB_Connect()
     Main()
