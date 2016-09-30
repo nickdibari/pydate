@@ -15,11 +15,19 @@ import shelve                  # Databse Management
 
 # PRE: Login Information from User
 # POST: Connection to EMail Sever
-# TODO: How to create connection to server?
 # TODO: How to store user login?
 def Set_Connection():
-    pass
-    
+    user = raw_input('Please enter your email address: ')
+    password = getpass.getpass('Please enter your password: ')
+    try:
+        connection = imaplib.IMAP4_SSL('imap.gmail.com', 993)
+        connection.login(user, password)
+        return connection
+    # TODO: Better exception handling
+    except Exception as e:
+        print('Hit error')
+        print e
+
 # PRE: Connection with Server
 # POST: List of Emails to Prioritize
 def Get_Emails(RAW_EMAILS):
@@ -57,4 +65,5 @@ def Main():
     pass
 
 if __name__ == '__main__':
+    connection = Set_Connection()
     Main()
