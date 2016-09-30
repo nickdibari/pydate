@@ -71,15 +71,6 @@ def Main():
     pass
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-<<<<<<< HEAD
     connection = Set_Connection()
-    Main()
-=======
     db = DB_Connect()
     Main()
->>>>>>> 9fed9a9c03e2913b73252337425ce8dec7466c5c
-=======
-    db = DB_Connect()
-    Main()
->>>>>>> 9fed9a9c03e2913b73252337425ce8dec7466c5c
