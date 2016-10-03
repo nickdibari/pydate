@@ -71,9 +71,8 @@ def Get_Targets(priority_list, Is_High_Priority):
     
 # Main Driver
 def Main():
-
-    Store_Emails(Target_Emails,db)
-
+    pass
+    
 if __name__ == '__main__':
     connection = Set_Connection()
     db = DB_Connect()
