@@ -41,6 +41,7 @@ def DB_Connect():
 def Get_Emails(conx):
     try:
         rsp, box = conx.select('INBOX', readonly=True)
+        #TODO: change the search parameters to suite your own testing. 
         rsp, msg = conx.search(None, '(FROM "Nicholas DiBari" UNSEEN)')
         if(rsp == 'OK'):
             for ids in msg:
