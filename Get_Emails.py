@@ -52,6 +52,8 @@ def Store_Emails(Target_Emails):
 # IMPORTANT: Must call function with assigning sequence set to 
 # return value
 # ex. High, Low = Set_Priority(EMAIL,LIST)
+#
+# TODO: More categories for adding emails to High_Priority
 def Set_Priority(EMAIL_LIST):
     High_Priority = []
     Low_Priority = []
