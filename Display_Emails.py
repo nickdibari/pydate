@@ -25,6 +25,8 @@ def Print(db):
 # POST: Display Emails that fit criteria
 def Search(db):
 	pass
+	print "Hello"
+	print "Hey"
 
 # PRE: Database connection
 # POST: Selected Emails deleted from Database
