@@ -22,9 +22,8 @@ def Set_Connection():
     password = getpass.getpass('Please enter your password: ')
     try:
         connection = imaplib.IMAP4_SSL('imap.gmail.com', 993)
-        connection = imatlib.login(user, password)
+        connection.login(user, password)
         return connection
-
     # TODO: Better exception handling
     except Exception as e:
         print('Hit error')
@@ -121,12 +120,9 @@ def Get_Targets(priority_list, Is_High_Priority):
     
 # Main Driver
 def Main(connection, db):
-    Raw_Emails = Get_Emails(connection) # Look into returning a 3-tuple into an object. 
-
-
     pass
 
 if __name__ == '__main__':
     connection = Set_Connection()
     db = DB_Connect()
-    Main(connection, db)
+    Main()
