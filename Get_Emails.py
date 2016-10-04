@@ -36,8 +36,6 @@ def DB_Connect():
     return db
 
 # PRE: Connection with Server
-# POST: List of Emails to Prioritize
-# PRE: Connection with Server
 # POST: List of Emails to Prioritize 
 def Get_Emails(conx):
     Emails = []
