@@ -73,8 +73,9 @@ def Get_Emails(conx):
                                 Emails.append(tempEmail)
                                 if(len(Emails) == 100): 
                                     return Emails
+    # TODO: Better exception handling.
     except Exception as e:    
-        print('ERROR')                                                                      # TODO: Better exception handling.
+        print('ERROR')
         print e
         
         
