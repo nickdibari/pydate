@@ -109,7 +109,7 @@ def Get_Targets(priority_list, Is_High_Priority):
     pass
     
 # Main Driver
-def Main(connection, db):
+def Main():
     pass
 
 if __name__ == '__main__':
