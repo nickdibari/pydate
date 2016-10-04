@@ -12,6 +12,7 @@ import email                   # Email Parsing
 import getpass                 # Password Protection    
 import re                      # Regular Expressions
 import shelve                  # Databse Management
+from datetime import datetime  # Datetime Information
 
 # PRE: Login Information from User
 # POST: Connection to EMail Sever (connection)
@@ -41,8 +42,10 @@ def Get_Emails(RAW_EMAILS):
 
 # PRE: List of Targeted Emails
 # POST: Emails stored in Database 
-def Store_Emails(Target_Emails):
-    pass
+def Store_Emails(Target_Emails, db):
+    #Save contents of list to shelve db
+    for i in range(len(Target_Emails)):
+        db[str(datetime.now())] = Target_Emails[i] # TODO: Consider different key. Maybe include info on sender?        
     
 # POST: Two list of Email objects
 #       High_Priority contains emails from important sender and important emails
@@ -69,7 +72,7 @@ def Get_Targets(priority_list, Is_High_Priority):
 # Main Driver
 def Main():
     pass
-
+    
 if __name__ == '__main__':
     connection = Set_Connection()
     db = DB_Connect()
