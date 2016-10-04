@@ -23,10 +23,51 @@ def Print(db):
 
 # PRE: Databse connection
 # POST: Display Emails that fit criteria
-def Search(db):
-	pass
-	print "Hello"
-	print "Hey"
+def Search():
+	# make test list of email objects
+	email = Email()
+	email.sender = "Blue Duck" 
+	email.subject = "I'm not chicken"
+	email.body = " QUACK QUACK QUACK "
+	email.date = "5/5/10"
+
+	email2 = Email()
+	email2.sender = "Red Duck" 
+	email2.subject = "fart"
+	email2.body = "lol"
+	email2.date = "5/4/12"
+
+	email3 = Email()
+	email3.sender = "Green Duck" 
+	email3.subject = "Yum"
+	email3.body = "I want food"
+	email3.date = "3/30/16"
+
+	# stores emails from db into this Dictionary 
+	Dictionary = {"Email_1": email, "Email_2": email2, "Email_3": email3}
+
+	while (true):
+		
+		searchTerm = input("What would you like to search by?")
+
+		if(searchTerm == "sender"):
+
+		else if (searchTerm == "subject"):
+		
+		else if (searchTerm == "body"):
+		
+		else if (searchTerm == "date"):
+
+		else:
+			print("You fucked up")
+
+
+
+
+	#print Dictionary["Email_1"].subject
+
+	# pass them to search function in main
+
 
 # PRE: Database connection
 # POST: Selected Emails deleted from Database
@@ -43,6 +84,7 @@ def Prompt(db):
 	pass
 
 if __name__ == '__main__':
-	db = Get_Connection()
-	Prompt(db)
-	Close_Connection(db)
+	#db = Get_Connection()
+	#Prompt()
+	Search()
+	#Close_Connection(db)
