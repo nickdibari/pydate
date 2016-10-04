@@ -51,6 +51,10 @@ def Set_Priority(EMAIL_LIST):
 # POST: One list of emails whose contents match common phrases for event sensitive emails
 def Get_Targets(priority_list, Is_High_Priority):
     pass
+
+def Close_Connection(connection, db):
+    connection.logout()
+    db.close()
     
 # Main Driver
 def Main():
