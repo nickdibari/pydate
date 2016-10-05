@@ -54,6 +54,7 @@ def Store_Emails(Target_Emails):
 # ex. High, Low = Set_Priority(EMAIL,LIST)
 #
 # TODO: More categories for adding emails to High_Priority
+# TODO: Priority list of emails (Config file)
 def Set_Priority(EMAIL_LIST):
     High_Priority = []
     Low_Priority = []
