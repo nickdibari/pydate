@@ -76,10 +76,6 @@ def Get_Emails(conx):
         print('ERROR')
         print e
         
-        
-        
-        
-        
 # PRE: List of Targeted Emails
 # POST: Emails stored in Database 
 def Store_Emails(Target_Emails):
