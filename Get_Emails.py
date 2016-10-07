@@ -53,12 +53,12 @@ def Store_Emails(Target_Emails):
 # return value
 # ex. High, Low = Set_Priority(EMAIL_LIST)
 #
-# TODO: More categories for adding emails to High_Priority
+# TODO: More categories for prioritizing emails
 # TODO: Priority list of emails (Config file)
 def Set_Priority(EMAIL_LIST):
     High_Priority = []
     Low_Priority = []
-    keywords = ['Important', 'Urgent',  'Mandatory']
+    keywords = ['Important', 'Urgent', 'Mandatory', 'Notice', 'Alert']
 
     for email in EMAIL_LIST:
         # Sender from '@fordham.edu'
