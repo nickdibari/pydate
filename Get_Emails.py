@@ -84,22 +84,36 @@ def Store_Emails(Target_Emails, db):
     for i in range(len(Target_Emails)):
         db[str(datetime.now())] = Target_Emails[i] # TODO: Consider different key. Maybe include info on sender?        
     
+# PRE: List of Email Objects
 # POST: Two list of Email objects
-#       High_Priority contains emails from important sender and important emails
-#       Low_Priority contains all other emails
+#   High_Priority contains important emails
+#   Low_Priority contains all other emails
+#
+# IMPORTANT: Must call function with assigning sequence set to 
+# return value
+# ex. High, Low = Set_Priority(EMAIL_LIST)
+#
+# TODO: More categories for prioritizing emails
+# TODO: Priority list of emails (Config file)
 def Set_Priority(EMAIL_LIST):
-    pass
-    
-    # Loop through all emails
-    for a in range(len(EMAIL_LIST)):
-        pass
-        # If the sender matches a sender in the user defined priority list
-        # OR
-        # If the sender address is from @fordham.edu
-        # Then add to High_Priority
+    High_Priority = []
+    Low_Priority = []
+    keywords = ['Important', 'Urgent', 'Mandatory', 'Notice', 'Alert']
+
+    for email in EMAIL_LIST:
+        # Sender from '@fordham.edu'
+        domain = re.search('@[\w.]+', email.sender)
+        if domain.group(0) == '@fordham.edu':
+            High_Priority.append(email)
         
-        # Else
-        # Then add to Low_Priority
+        # Keywords in Subject
+        elif any(keyword in email.subject for keyword in keywords):
+            High_Priority.append(email)
+        
+        else:
+            Low_Priority.append(email)
+
+    return High_Priority, Low_Priority
 
 # PRE: One list of prioritized Emails to parse
 # POST: One list of emails whose contents match common phrases for event sensitive emails
