@@ -51,20 +51,25 @@ def Store_Emails(Target_Emails):
 #
 # IMPORTANT: Must call function with assigning sequence set to 
 # return value
-# ex. High, Low = Set_Priority(EMAIL,LIST)
+# ex. High, Low = Set_Priority(EMAIL_LIST)
 #
 # TODO: More categories for adding emails to High_Priority
 # TODO: Priority list of emails (Config file)
 def Set_Priority(EMAIL_LIST):
     High_Priority = []
     Low_Priority = []
+    keywords = ['Important', 'Urgent',  'Mandatory']
 
     for email in EMAIL_LIST:
         # Sender from '@fordham.edu'
         domain = re.search('@[\w.]+', email.sender)
         if domain.group(0) == '@fordham.edu':
             High_Priority.append(email)
-
+        
+        # Keywords in Subject
+        elif any(keyword in email.subject for keyword in keywords):
+            High_Priority.append(email)
+        
         else:
             Low_Priority.append(email)
 
