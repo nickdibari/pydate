@@ -1,5 +1,3 @@
-#!/usr/bin/python2.7       
-
 #* EMAIL PROJECT PYTHON               *#
 #* Email_Object.py                    *#
 #* ---------------------------------- *#
