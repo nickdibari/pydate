@@ -1,8 +1,8 @@
 #* PYTHON EMAIL PROJECT                 *#
-#* tests.py                        		*#
+#* tests.py                        	*#
 #* Fordham CSS September 25             *#
 #* ------------------------------------ *#
-#* Unit tests for PyDate program 		*#
+#* Unit tests for PyDate program 	*#
 
 from Email_Object import Email
 from Get_Emails import Set_Priority
@@ -16,6 +16,7 @@ class Test_Set_Priority(unittest.TestCase):
     def test_high_domain(self):
         email = Email()
         email.sender = 'test@fordham.edu'
+        email.subject = 'Blah'
         EMAILS = [email]
 
         hi,lo = Set_Priority(EMAILS)
@@ -70,3 +71,4 @@ class Test_Set_Priority(unittest.TestCase):
 
 if __name__ == '__main__':
 	unittest.main()
+
