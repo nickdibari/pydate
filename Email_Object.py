@@ -4,8 +4,9 @@
 #* Class Declaration for Email Object *#
 
 class Email:
-    def __init__(self, sender, date, subject, body, id_code):
-        self.sender = sender # Sender of Email
+    def __init__(self, senderName, senderEmail, date, subject, body, id_code):
+        self.senderName = senderName # Sender's name. '
+        self.senderEmail = senderEmail #Sender's Email Address. 
         self.date = date # Date Email was recieved
         self.subject = subject # Subject of Email
         self.body = body # Body of email
