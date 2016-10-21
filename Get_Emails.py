@@ -48,30 +48,32 @@ def Get_Emails(conx):
             if(rsp == 'OK'):
                 Msg_list = reversed(msg[0].split())
                 for ids in Msg_list:
+                    msgID = ids
                     rsp, Msg_data = conx.fetch(ids, '(RFC822)')
-
                     if(rsp == 'OK'):
                         for rsp_part in Msg_data:
                             if isinstance(rsp_part, tuple):
                                 msg = email.message_from_string(rsp_part[1]) 
-                                tempEmail = Email()
-                                tempEmail.subject = msg['subject']
-                                tempEmail.sender = msg['from']
-                                tempEmail.date = msg['date']
+                                msgSubject = msg['subject']
+                                p = re.compile('([A-Za-z].*)<([a-z].*)>')
+                                m = p.match(msg['from'])
+                                senderName = m.group(1)
+                                senderAddr = m.group(2)
+                                msgDate = msg['date']
                                 if(msg.is_multipart() == True):
                                     bodyText = msg.get_payload(0) 
-                                    tempEmail.body = bodyText.get_payload(decode=True)
+                                    msgBody = bodyText.get_payload(decode=True)
                                 else:
                                     bodyText = msg.get_payload(decode=True)
                                     if type(bodyText) is str:
-                                        tempEmail.body = bodyText
+                                        msgBody = bodyText
                                     else:
                                         # TODO: Further testing on single-part emails. 
                                         raise Exception('Single-part Payload not working')
-                            
-                                Emails.append(tempEmail)
+                                tempEmail = Email(senderName, senderAddr, msgDate, msgSubject, msgBody, msgID)
+                                Emails.append(tempEmail) 
                                 if(len(Emails) == 100): 
-                                    return Emails
+                                    return Emails 
                         return Emails
     # TODO: Better exception handling.
     except Exception as e:    
@@ -103,7 +105,7 @@ def Set_Priority(EMAIL_LIST):
 
     for email in EMAIL_LIST:
         # Sender from '@fordham.edu'
-        domain = re.search('@[\w.]+', email.sender)
+        domain = re.search('@[\w.]+', email.senderEmail)
         if domain.group(0) == '@fordham.edu':
             High_Priority.append(email)
         
@@ -120,7 +122,6 @@ def Set_Priority(EMAIL_LIST):
 # POST: One list of emails whose contents match common phrases for event sensitive emails
 def Get_Targets(high_priority_list, low_priority_list):
     priority_emails = []
-    print "here"
     for email in high_priority_list:
         if email.body:
             match = re.search(r'(([A-Z][a-z]*)\s([0-9].),\s([0-9]{2,4}))', email.body, flags=0)
