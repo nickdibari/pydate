@@ -29,7 +29,6 @@ def Search():
 	email2 = Email("Red Duck", "5/4/12", "fart" , "lol yo" ,  2345) 
 	email3 = Email("Green Duck", "3/30/16", "Yum" , "I want food" ,  3456)
 
-
 	# stores emails from db into this Dictionary 
 	Dictionary = {"Email_1": email, "Email_2": email2, "Email_3": email3}
 
@@ -69,15 +68,13 @@ def Search():
 				if email.date == dateTerm:
 					print (email)
 
-			
-
 		else:
 			print("You fucked up")
-
 
 	#print Dictionary["Email_1"].subject
 
 	# pass them to search function in main
+
 
 # PRE: Database connection
 # POST: Selected Emails deleted from Database
@@ -114,6 +111,6 @@ def Prompt(db):
 
 if __name__ == '__main__':
 	#db = Get_Connection()
+	#Prompt()
 	Search()
-	#Prompt(db)
 	#Close_Connection(db)
