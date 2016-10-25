@@ -72,6 +72,7 @@ def Get_Emails(conx):
                                 Emails.append(tempEmail)
                                 if(len(Emails) == 100): 
                                     return Emails
+                        return Emails
     # TODO: Better exception handling.
     except Exception as e:    
         print('ERROR')
@@ -117,8 +118,23 @@ def Set_Priority(EMAIL_LIST):
 
 # PRE: One list of prioritized Emails to parse
 # POST: One list of emails whose contents match common phrases for event sensitive emails
-def Get_Targets(priority_list, Is_High_Priority):
-    pass
+def Get_Targets(EMAIL_LIST, Is_High_Priority):
+    priority_emails = []
+    
+    # High Priority Checks
+    if Is_High_Priority:
+        pass
+
+    # All other checks
+    for email in EMAIL_LIST:
+        if email.body:
+            match = re.search(r'(([A-Z][a-z]*)\s([0-9].),\s([0-9]{2,4}))', email.body, flags=0)
+            if match:
+                priority_emails.append(email)
+            else:
+                match = re.search(r'(([0-9].):([0-9].))', email.body, flags=0)
+                if match:
+                    priority_emails.append(email)
     
 # Main Driver
 def Main():
