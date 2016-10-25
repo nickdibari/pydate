@@ -118,10 +118,15 @@ def Set_Priority(EMAIL_LIST):
 
 # PRE: One list of prioritized Emails to parse
 # POST: One list of emails whose contents match common phrases for event sensitive emails
-def Get_Targets(high_priority_list, low_priority_list):
+def Get_Targets(EMAIL_LIST, Is_High_Priority):
     priority_emails = []
-    print "here"
-    for email in high_priority_list:
+    
+    # High Priority Checks
+    if Is_High_Priority:
+        pass
+
+    # All other checks
+    for email in EMAIL_LIST:
         if email.body:
             match = re.search(r'(([A-Z][a-z]*)\s([0-9].),\s([0-9]{2,4}))', email.body, flags=0)
             if match:
