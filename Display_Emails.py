@@ -23,8 +23,61 @@ def Print(db):
 
 # PRE: Databse connection
 # POST: Display Emails that fit criteria
-def Search(db):
-	pass
+def Search():
+	# make test list of email objects
+	email = Email("Blue Duck", "5/5/10" , "I'm not chicken", " QUACK QUACK QUACK ", 235)
+	email2 = Email("Red Duck", "5/4/12", "fart" , "lol yo" ,  2345) 
+	email3 = Email("Green Duck", "3/30/16", "Yum" , "I want food" ,  3456)
+
+
+	# stores emails from db into this Dictionary 
+	Dictionary = {"Email_1": email, "Email_2": email2, "Email_3": email3}
+
+	# Menu
+
+	print ("What would you like to search for? Type the words in () ")
+	print ("1. Search by sneder (sender)")
+	print ("2. Search by subject (subject)")
+	print ("3. Search for specfic word in body (body)")
+	print ("4. Search by date (date)")
+
+	while (True):
+		searchTerm = raw_input("Please enter in term: ")
+		print(searchTerm)   
+		if searchTerm == "sender":
+			senderTerm = raw_input("Please enter sender: ")
+			for email in Dictionary.values():
+				if email.sender == senderTerm:
+					print (email)
+
+		elif searchTerm == "subject":
+			subjectTerm = raw_input("Please enter in subject: ")
+			for email in Dictionary.values():
+				if email.subject == subjectTerm:
+					print (email)
+		
+		elif searchTerm == "body":
+			bodyTerm = raw_input("Please enter in word in body of email you want to find: ")
+			for email in Dictionary.values():
+				if bodyTerm in email.body:
+					print (email)
+		
+		
+		elif searchTerm == "date":
+			dateTerm = raw_input("Please enter date: ")
+			for email in Dictionary.values():
+				if email.date == dateTerm:
+					print (email)
+
+			
+
+		else:
+			print("You fucked up")
+
+
+	#print Dictionary["Email_1"].subject
+
+	# pass them to search function in main
 
 # PRE: Database connection
 # POST: Selected Emails deleted from Database
@@ -60,6 +113,7 @@ def Prompt(db):
 	pass
 
 if __name__ == '__main__':
-	db = Get_Connection()
-	Prompt(db)
-	Close_Connection(db)
+	#db = Get_Connection()
+	Search()
+	#Prompt(db)
+	#Close_Connection(db)
