@@ -82,8 +82,8 @@ def Get_Emails(conx):
 # POST: Emails stored in Database 
 def Store_Emails(Target_Emails, db):
     #Save contents of list to shelve db
-    for i in range(len(Target_Emails)):
-        db[str(datetime.now())] = Target_Emails[i] # TODO: Consider different key. Maybe include info on sender?        
+    for email in Target_Emails:
+        db[str(datetime.now())] = email # TODO: Consider different key. Maybe include info on sender?        
     
 # PRE: List of Email Objects
 # POST: Two list of Email objects
