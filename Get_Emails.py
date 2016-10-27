@@ -155,5 +155,9 @@ def Main():
         Store_Emails(targets, db)
         db.sync()
 
+    connection.close()
+    connection.logout()
+    db.close()
+
 if __name__ == '__main__':
     Main()
