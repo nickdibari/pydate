@@ -33,7 +33,7 @@ def Set_Connection():
 # PRE: Database Exists
 # POST: Database connection (db)
 def DB_Connect():
-    db = shelve.open('Emails.db')
+    db = shelve.open('Emails.db', writeback=True)
     return db
 
 # PRE: Connection with Server
@@ -138,9 +138,22 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
     
 # Main Driver
 def Main():
-    pass
-    
-if __name__ == '__main__':
     connection = Set_Connection()
     db = DB_Connect()
+
+    while True:
+        RAW_EMAILS = Get_Emails(connection)
+        Hi, Lo = Set_Priority(RAW_EMAILS)
+
+        if Hi:
+            targets = Get_Targets(Hi, True)
+            targets.extend(Get_Targets(Lo[:100], False))
+
+        else:
+            targets = Get_Targets(Lo, False)
+
+        Store_Emails(targets, db)
+        db.sync()
+
+if __name__ == '__main__':
     Main()
