@@ -19,9 +19,6 @@ def Get_Connection():
 # PRE: Databse connection
 # POST: Emails displayed
 def Print(db):
-	#for use inside the Search function--
-	#have Search function store all search results in a dictionary
-	#pass dictionary to this funtion and it will print all emails in the dictionary
     for key, value, in db.iteritems():
         print("-----------------------------------------------")
 		print('{0}\n{1}'.format(key, value))
