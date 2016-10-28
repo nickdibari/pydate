@@ -99,7 +99,8 @@ def Store_Emails(Target_Emails, db):
 def Set_Priority(EMAIL_LIST):
     High_Priority = []
     Low_Priority = []
-    keywords = ['Important', 'Urgent', 'Mandatory', 'Notice', 'Alert']
+    keywords = ['Important', 'Urgent', 'Mandatory', 'Notice', 'Alert',\ 
+                'Exam', 'Test', 'Due']
 
     for email in EMAIL_LIST:
         # Sender from '@fordham.edu'
