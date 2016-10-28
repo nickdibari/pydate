@@ -141,19 +141,18 @@ def Main():
     connection = Set_Connection()
     db = DB_Connect()
 
-    while True:
-        RAW_EMAILS = Get_Emails(connection)
-        Hi, Lo = Set_Priority(RAW_EMAILS)
+    RAW_EMAILS = Get_Emails(connection)
+    Hi, Lo = Set_Priority(RAW_EMAILS)
 
-        if Hi:
-            targets = Get_Targets(Hi, True)
-            targets.extend(Get_Targets(Lo[:100], False))
+    if Hi:
+        targets = Get_Targets(Hi, True)
+        targets.extend(Get_Targets(Lo[:100], False))
 
-        else:
-            targets = Get_Targets(Lo, False)
+    else:
+        targets = Get_Targets(Lo, False)
 
-        Store_Emails(targets, db)
-        db.sync()
+    Store_Emails(targets, db)
+    db.sync()
 
     connection.close()
     connection.logout()
