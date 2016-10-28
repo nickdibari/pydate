@@ -29,10 +29,10 @@ def Search(db):
 
 	# Menu
 	print ("What would you like to search for? Type the words in () ")
-	print ("	Search by sender (sender)")
-	print ("	Search by subject (subject)")
-	print ("	Search for specfic word in body (body)")
-	print ("	Search by date (date)")
+	print ("--Search by sender (sender)")
+	print ("--Search by subject (subject)")
+	print ("--Search for specfic word in body (body)")
+	print ("--Search by date (date)")
 
 	# Get search term to search for and results
 	while (flag):
@@ -40,28 +40,28 @@ def Search(db):
 		
 		if searchTerm == "sender":
 			senderTerm = raw_input("Please enter sender: ")
-			for email in Dictionary.values():
+			for email in db.values():
 				if email.sender == senderTerm:
 					matches.append(email)
 				flag = False
 
 		elif searchTerm == "subject":
 			subjectTerm = raw_input("Please enter in subject: ")
-			for email in Dictionary.values():
+			for email in db.values():
 				if email.subject == subjectTerm:
 					matches.append(email)
 				flag = False
 		
 		elif searchTerm == "body":
 			bodyTerm = raw_input("Please enter in word in body of email you want to find: ")
-			for email in Dictionary.values():
+			for email in db.values():
 				if bodyTerm in email.body:
 					matches.append(email)
 				flag = False
 		
 		elif searchTerm == "date":
 			dateTerm = raw_input("Please enter date: ")
-			for email in Dictionary.values():
+			for email in db.values():
 				if email.date == dateTerm:
 					matches.append(emails)
 				flag = False
@@ -114,7 +114,6 @@ def Prompt(db):
 	pass
 
 if __name__ == '__main__':
-	#db = Get_Connection()
-	#Prompt()
-	Search()
-	#Close_Connection(db)
+	db = Get_Connection()
+	Prompt()
+	Close_Connection(db)
