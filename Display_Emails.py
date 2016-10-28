@@ -112,9 +112,39 @@ def Close_Connection(db):
 
 # Main Prompt for User Interface
 def Prompt(db):
-	pass
+	flag = True
+	
+	print('Welcome to pydate!')
+	
+	while(flag):
+		print('Main Menu: ')
+		print('---------------------------------')
+		print('1. Print Emails from Database')
+		print('2. Delete Email from Database')
+		print('3. Search for Email from Database')
+		print('4. [Exit]')
+		print('---------------------------------')
+
+		choice = raw_input('Please select the number of the option: ')
+		choice = int(choice)
+		
+		if choice == 1:
+			Print(db)
+
+		elif choice == 2:
+			Delete(db)
+
+		elif choice == 3:
+			Search(db)
+
+		elif choice == 4:
+			flag = False
+
+		else:
+			print('Invalid choice')
 
 if __name__ == '__main__':
 	db = Get_Connection()
 	Prompt(db)
 	Close_Connection(db)
+
