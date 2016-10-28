@@ -20,7 +20,10 @@ def Get_Connection():
 # PRE: Databse connection
 # POST: Emails displayed
 def Print(db):
-	pass
+    for key, value, in db.iteritems():
+        print("-----------------------------------------------")
+		print('{0}\n{1}'.format(key, value))
+		print("-----------------------------------------------")
 
 # PRE: Databse connection
 # POST: Display Emails that fit criteria
