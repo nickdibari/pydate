@@ -115,5 +115,5 @@ def Prompt(db):
 
 if __name__ == '__main__':
 	db = Get_Connection()
-	Prompt()
+	Prompt(db)
 	Close_Connection(db)
