@@ -14,7 +14,8 @@ import shelve				   # Database Management
 # TODO: Clean up database here?
 #		-> Remove events that have already passed
 def Get_Connection():
-	pass
+	db = shelve.open('Emails.db')
+	return db
 
 # PRE: Databse connection
 # POST: Emails displayed
@@ -107,7 +108,7 @@ def Delete(db):
 # PRE: Database connection
 # POST: Database connection closed
 def Close_Connection(db):
-	pass
+	db.close()
 
 # Main Prompt for User Interface
 def Prompt(db):
