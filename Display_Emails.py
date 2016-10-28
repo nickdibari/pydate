@@ -24,7 +24,61 @@ def Print(db):
 # PRE: Databse connection
 # POST: Display Emails that fit criteria
 def Search(db):
-	pass
+	matches = []
+	flag = True
+
+	# Menu
+	print ("What would you like to search for? Type the words in () ")
+	print ("--Search by sender (sender)")
+	print ("--Search by subject (subject)")
+	print ("--Search for specfic word in body (body)")
+	print ("--Search by date (date)")
+
+	# Get search term to search for and results
+	while (flag):
+		searchTerm = raw_input("Please enter in term: (Enter done to exit) ")
+		
+		if searchTerm == "sender":
+			senderTerm = raw_input("Please enter sender: ")
+			for email in db.values():
+				if email.sender == senderTerm:
+					matches.append(email)
+				flag = False
+
+		elif searchTerm == "subject":
+			subjectTerm = raw_input("Please enter in subject: ")
+			for email in db.values():
+				if email.subject == subjectTerm:
+					matches.append(email)
+				flag = False
+		
+		elif searchTerm == "body":
+			bodyTerm = raw_input("Please enter in word in body of email you want to find: ")
+			for email in db.values():
+				if bodyTerm in email.body:
+					matches.append(email)
+				flag = False
+		
+		elif searchTerm == "date":
+			dateTerm = raw_input("Please enter date: ")
+			for email in db.values():
+				if email.date == dateTerm:
+					matches.append(emails)
+				flag = False
+				
+		elif searchTerm == "done":
+			flag = False
+
+		else:
+			print("Invalid term, please try again")
+
+	# Display matches
+	if not matches:
+		print('No matches')
+
+	else:
+		for match in matches:
+			print match
 
 # PRE: Database connection
 # POST: Selected Emails deleted from Database
