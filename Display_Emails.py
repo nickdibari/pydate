@@ -9,8 +9,6 @@ from Email_Object import Email # Email class to be used
 
 import shelve				   # Database Management
 
-a = 5
-
 # PRE: Databse exists
 # POST: Database connection (db)
 # TODO: Clean up database here?
