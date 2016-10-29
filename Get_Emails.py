@@ -45,8 +45,10 @@ def Get_Emails(conx):
         rsp, box = conx.select('INBOX', readonly=True)
         if(rsp == 'OK'): 
             rsp, msg = conx.search(None, '(UNSEEN)')           
+            
             if(rsp == 'OK'):
                 Msg_list = reversed(msg[0].split())
+                
                 for ids in Msg_list:
                     rsp, Msg_data = conx.fetch(ids, '(RFC822)')
 
@@ -54,21 +56,21 @@ def Get_Emails(conx):
                         for rsp_part in Msg_data:
                             if isinstance(rsp_part, tuple):
                                 msg = email.message_from_string(rsp_part[1]) 
-                                tempEmail = Email()
-                                tempEmail.subject = msg['subject']
-                                tempEmail.sender = msg['from']
-                                tempEmail.date = msg['date']
+                                subject = msg['subject']
+                                sender = msg['from']
+                                date = msg['date']
                                 if(msg.is_multipart() == True):
                                     bodyText = msg.get_payload(0) 
-                                    tempEmail.body = bodyText.get_payload(decode=True)
+                                    body = bodyText.get_payload(decode=True)
                                 else:
                                     bodyText = msg.get_payload(decode=True)
                                     if type(bodyText) is str:
-                                        tempEmail.body = bodyText
+                                        body = bodyText
                                     else:
                                         # TODO: Further testing on single-part emails. 
                                         raise Exception('Single-part Payload not working')
-                            
+                                # TODO: Still need to figure out Email ID
+                                tempEmail = Email(sender, date, subject, body, None)
                                 Emails.append(tempEmail)
                                 if(len(Emails) == 100): 
                                     return Emails
