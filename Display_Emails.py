@@ -47,28 +47,28 @@ def Search(db):
 			for email in db.values():
 				if email.sender == senderTerm:
 					matches.append(email)
-				flag = False
+			flag = False
 
 		elif searchTerm == "subject":
 			subjectTerm = raw_input("Please enter in subject: ")
 			for email in db.values():
 				if email.subject == subjectTerm:
 					matches.append(email)
-				flag = False
+			flag = False
 		
 		elif searchTerm == "body":
 			bodyTerm = raw_input("Please enter in word in body of email you want to find: ")
 			for email in db.values():
 				if bodyTerm in email.body:
 					matches.append(email)
-				flag = False
+			flag = False
 		
 		elif searchTerm == "date":
 			dateTerm = raw_input("Please enter date: ")
 			for email in db.values():
 				if email.date == dateTerm:
 					matches.append(emails)
-				flag = False
+			flag = False
 				
 		elif searchTerm == "done":
 			flag = False
