@@ -58,6 +58,7 @@ def Get_Emails(conx):
                         for rsp_part in Msg_data:
                             if isinstance(rsp_part, tuple):
                                 msg = email.message_from_string(rsp_part[1]) 
+                                msgid = msg['message-id']
                                 subject = msg['subject']
                                 sender = msg['from']
                                 date = msg['date']
@@ -71,8 +72,7 @@ def Get_Emails(conx):
                                     else:
                                         # TODO: Further testing on single-part emails. 
                                         raise Exception('Single-part Payload not working')
-                                # TODO: Still need to figure out Email ID
-                                tempEmail = Email(sender, date, subject, body, None)
+                                tempEmail = Email(sender, date, subject, body, msgid)
                                 Emails.append(tempEmail)
                                 if(len(Emails) == 100): 
                                     return Emails
