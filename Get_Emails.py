@@ -40,15 +40,17 @@ def DB_Connect():
 # POST: List of Emails to Prioritize 
 def Get_Emails(conx):
     Emails = []
+
     try:
         # TODO: Possibly extend to search other/all mailboxes.
         rsp, box = conx.select('INBOX', readonly=True)
+
         if(rsp == 'OK'): 
             rsp, msg = conx.search(None, '(UNSEEN)')           
-            
+
             if(rsp == 'OK'):
                 Msg_list = reversed(msg[0].split())
-                
+
                 for ids in Msg_list:
                     rsp, Msg_data = conx.fetch(ids, '(RFC822)')
 
@@ -74,7 +76,7 @@ def Get_Emails(conx):
                                 Emails.append(tempEmail)
                                 if(len(Emails) == 100): 
                                     return Emails
-                        return Emails
+                return Emails
     # TODO: Better exception handling.
     except Exception as e:    
         print('ERROR')
