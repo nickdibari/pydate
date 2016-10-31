@@ -82,7 +82,7 @@ def Get_Emails(conx):
 # POST: Emails stored in Database 
 def Store_Emails(Target_Emails, db):
     for email in Target_Emails:
-        db[email.id_code] = email # TODO: Consider different key. Maybe include info on sender?        
+        db[email.id_code] = email
     
 # PRE: List of Email Objects
 # POST: Two list of Email objects
