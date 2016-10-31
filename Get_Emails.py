@@ -139,6 +139,8 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
                 match = re.search(r'(([0-9].):([0-9].))', email.body, flags=0)
                 if match:
                     priority_emails.append(email)
+
+    return priority_emails
     
 # Main Driver
 def Main():
