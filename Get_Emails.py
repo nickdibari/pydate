@@ -124,21 +124,34 @@ def Set_Priority(EMAIL_LIST):
 # POST: One list of emails whose contents match common phrases for event sensitive emails
 def Get_Targets(EMAIL_LIST, Is_High_Priority):
     priority_emails = []
+    cancel_keywords = ['class cancelled', 'class canceled']
+    due_keywords = ['due', 'assignment', 'homework']
     
     # High Priority Checks
     if Is_High_Priority:
-        pass
+        for email in EMAIL_LIST:
+            # Check subject for class cancellation
+            if any(keyword in email.subject.lower() for keyword in cancel_keywords):
+                priority_emails.append(email)
+
+            # Check subject for assignment info
+            elif any(keyword in email.subject.lower() for keyword in due_keywords):
+                priority_emails.append(email)
 
     # All other checks
     for email in EMAIL_LIST:
         if email.body:
+            # Check for date
             match = re.search(r'(([A-Z][a-z]*)\s([0-9].),\s([0-9]{2,4}))', email.body, flags=0)
             if match:
                 priority_emails.append(email)
             else:
+                # Check for time
                 match = re.search(r'(([0-9].):([0-9].))', email.body, flags=0)
                 if match:
                     priority_emails.append(email)
+
+    return priority_emails
     
 # Main Driver
 def Main():
