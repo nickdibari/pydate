@@ -20,8 +20,8 @@ def Get_Connection():
 # PRE: Databse connection
 # POST: Emails displayed
 def Print(db):
-    for key, value, in db.iteritems():
-        print("-----------------------------------------------")
+	for key, value in db.iteritems():
+		print("-----------------------------------------------")
 		print('{0}\n{1}'.format(key, value))
 		print("-----------------------------------------------")
 
