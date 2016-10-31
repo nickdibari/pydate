@@ -138,7 +138,6 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
             elif any(keyword in email.subject.lower() for keyword in due_keywords):
                 priority_emails.append(email)
 
-
     # All other checks
     for email in EMAIL_LIST:
         if email.body:
