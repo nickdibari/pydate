@@ -12,6 +12,7 @@ import email                   # Email Parsing
 import getpass                 # Password Protection    
 import re                      # Regular Expressions
 import shelve                  # Databse Management
+import logging                 # Logging Information
 from datetime import datetime  # Datetime Information
 
 # PRE: Login Information from User
@@ -22,14 +23,15 @@ def Set_Connection():
     user = raw_input('Please enter your email address: ')
     password = getpass.getpass('Please enter your password: ')
     try:
+        logging.info(' Connecting to imap.gmail.com with username: {0}'.format(user))
         connection = imaplib.IMAP4_SSL('imap.gmail.com', 993)
         connection.login(user, password)
+        logging.info(' Connected to imap.gmail.com')
         return connection
     # TODO: Better exception handling
     except Exception as e:
-        print('Hit error')
-        print e
-    
+        logging.exception(' Did not log in properly')
+
 # PRE: Database Exists
 # POST: Database connection (db)
 def DB_Connect():
@@ -142,6 +144,8 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
     
 # Main Driver
 def Main():
+    logging.basicConfig(filename='Get.log', level=logging.DEBUG)
+
     connection = Set_Connection()
     db = DB_Connect()
 
