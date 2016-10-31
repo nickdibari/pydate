@@ -114,13 +114,18 @@ def Set_Priority(EMAIL_LIST):
         # Sender from '@fordham.edu'
         domain = re.search('@[\w.]+', email.sender)
         if domain.group(0) == '@fordham.edu':
+            logging.info(' Adding email with id: {0} to High Priority'.format(email.id_code))
+            logging.info(' REASON: Matches @fordham.edu')
             High_Priority.append(email)
         
         # Keywords in Subject
         elif any(keyword in email.subject for keyword in keywords):
+            logging.info(' Adding email with id: {0} to High Priority'.format(email.id_code))
+            logging.info(' REASON: Matches subject keyword')
             High_Priority.append(email)
         
         else:
+            logging.info(' Adding email with id: {0} to Low Priority'.format(email.id_code))
             Low_Priority.append(email)
 
     return High_Priority, Low_Priority
@@ -148,6 +153,7 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
 # Main Driver
 def Main():
     logging.basicConfig(filename='Get.log', level=logging.DEBUG)
+    logging.info(' Starting Get_Emails.py')
 
     connection = Set_Connection()
     db = DB_Connect()
@@ -167,7 +173,11 @@ def Main():
 
     connection.close()
     connection.logout()
+    logging.info(' Closed connection to server')
     db.close()
+    logging.info(' Closed connection to Databse')
+
+    logging.info(' Exiting Get_Emails.py')
 
 if __name__ == '__main__':
     Main()
