@@ -36,6 +36,7 @@ def Set_Connection():
 # POST: Database connection (db)
 def DB_Connect():
     db = shelve.open('Emails.db', writeback=True)
+    logging.info(' Connected to DB OK')
     return db
 
 # PRE: Connection with Server
@@ -48,15 +49,18 @@ def Get_Emails(conx):
         rsp, box = conx.select('INBOX', readonly=True)
 
         if(rsp == 'OK'): 
+            logging.info(' Connected to INBOX')
             rsp, msg = conx.search(None, '(UNSEEN)')           
 
             if(rsp == 'OK'):
+                logging.info(' Searched for messages OK')
                 Msg_list = reversed(msg[0].split())
 
                 for ids in Msg_list:
                     rsp, Msg_data = conx.fetch(ids, '(RFC822)')
 
                     if(rsp == 'OK'):
+                        logging.info(' Feteched message {0} OK'.format(ids))
                         for rsp_part in Msg_data:
                             if isinstance(rsp_part, tuple):
                                 msg = email.message_from_string(rsp_part[1]) 
@@ -81,8 +85,7 @@ def Get_Emails(conx):
                 return Emails
     # TODO: Better exception handling.
     except Exception as e:    
-        print('ERROR')
-        print e
+        logging.exception(' Hit exception in Get_Emails')
         
 # PRE: List of Targeted Emails
 # POST: Emails stored in Database 
