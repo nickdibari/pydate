@@ -144,10 +144,14 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
         if email.body:
             match = re.search(r'(([A-Z][a-z]*)\s([0-9].),\s([0-9]{2,4}))', email.body, flags=0)
             if match:
+                logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                logging.info(' REASON: Matches date format')
                 priority_emails.append(email)
             else:
                 match = re.search(r'(([0-9].):([0-9].))', email.body, flags=0)
                 if match:
+                    logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                    logging.info(' REASON: Matches time format')
                     priority_emails.append(email)
     
 # Main Driver
