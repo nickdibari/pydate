@@ -12,7 +12,6 @@ import email                   # Email Parsing
 import getpass                 # Password Protection    
 import re                      # Regular Expressions
 import shelve                  # Databse Management
-from datetime import datetime  # Datetime Information
 
 # PRE: Login Information from User
 # POST: Connection to EMail Sever (connection)
