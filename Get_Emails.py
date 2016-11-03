@@ -142,10 +142,14 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
         for email in EMAIL_LIST:
             # Check subject for class cancellation
             if any(keyword in email.subject.lower() for keyword in cancel_keywords):
+                logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                logging.info(' REASON: Matches class cancelation keyword')
                 priority_emails.append(email)
 
             # Check subject for assignment info
             elif any(keyword in email.subject.lower() for keyword in due_keywords):
+                logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                logging.info(' REASON: Matches assignment due keyword')
                 priority_emails.append(email)
 
     # All other checks
