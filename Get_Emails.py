@@ -77,6 +77,7 @@ def Get_Emails(conx):
                                         body = bodyText
                                     else:
                                         # TODO: Further testing on single-part emails. 
+                                        logging.warning(' Message {0} is single-part. Exception raised'.format(ids))
                                         raise Exception('Single-part Payload not working')
                                 tempEmail = Email(sender, date, subject, body, msgid)
                                 Emails.append(tempEmail)
