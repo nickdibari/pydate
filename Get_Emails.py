@@ -12,6 +12,7 @@ import email                   # Email Parsing
 import getpass                 # Password Protection    
 import re                      # Regular Expressions
 import shelve                  # Databse Management
+import logging                 # Logging Information
 from datetime import datetime  # Datetime Information
 
 # PRE: Login Information from User
@@ -22,18 +23,20 @@ def Set_Connection():
     user = raw_input('Please enter your email address: ')
     password = getpass.getpass('Please enter your password: ')
     try:
+        logging.info(' Connecting to imap.gmail.com with username: {0}'.format(user))
         connection = imaplib.IMAP4_SSL('imap.gmail.com', 993)
         connection.login(user, password)
+        logging.info(' Connected to imap.gmail.com')
         return connection
     # TODO: Better exception handling
     except Exception as e:
-        print('Hit error')
-        print e
-    
+        logging.exception(' Did not log in properly')
+
 # PRE: Database Exists
 # POST: Database connection (db)
 def DB_Connect():
     db = shelve.open('Emails.db', writeback=True)
+    logging.info(' Connected to DB OK')
     return db
 
 # PRE: Connection with Server
@@ -46,15 +49,18 @@ def Get_Emails(conx):
         rsp, box = conx.select('INBOX', readonly=True)
 
         if(rsp == 'OK'): 
+            logging.info(' Connected to INBOX')
             rsp, msg = conx.search(None, '(UNSEEN)')           
 
             if(rsp == 'OK'):
+                logging.info(' Searched for messages OK')
                 Msg_list = reversed(msg[0].split())
 
                 for ids in Msg_list:
                     rsp, Msg_data = conx.fetch(ids, '(RFC822)')
 
                     if(rsp == 'OK'):
+                        logging.info(' Feteched message {0} OK'.format(ids))
                         for rsp_part in Msg_data:
                             if isinstance(rsp_part, tuple):
                                 msg = email.message_from_string(rsp_part[1]) 
@@ -71,6 +77,7 @@ def Get_Emails(conx):
                                         body = bodyText
                                     else:
                                         # TODO: Further testing on single-part emails. 
+                                        logging.warning(' Message {0} is single-part. Exception raised'.format(ids))
                                         raise Exception('Single-part Payload not working')
                                 tempEmail = Email(sender, date, subject, body, msgid)
                                 Emails.append(tempEmail)
@@ -79,8 +86,7 @@ def Get_Emails(conx):
                 return Emails
     # TODO: Better exception handling.
     except Exception as e:    
-        print('ERROR')
-        print e
+        logging.exception(' Hit exception in Get_Emails')
         
 # PRE: List of Targeted Emails
 # POST: Emails stored in Database 
@@ -109,13 +115,18 @@ def Set_Priority(EMAIL_LIST):
         # Sender from '@fordham.edu'
         domain = re.search('@[\w.]+', email.sender)
         if domain.group(0) == '@fordham.edu':
+            logging.info(' Adding email with id: {0} to High Priority'.format(email.id_code))
+            logging.info(' REASON: Matches @fordham.edu')
             High_Priority.append(email)
         
         # Keywords in Subject
         elif any(keyword in email.subject for keyword in keywords):
+            logging.info(' Adding email with id: {0} to High Priority'.format(email.id_code))
+            logging.info(' REASON: Matches subject keyword')
             High_Priority.append(email)
         
         else:
+            logging.info(' Adding email with id: {0} to Low Priority'.format(email.id_code))
             Low_Priority.append(email)
 
     return High_Priority, Low_Priority
@@ -132,10 +143,14 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
         for email in EMAIL_LIST:
             # Check subject for class cancellation
             if any(keyword in email.subject.lower() for keyword in cancel_keywords):
+                logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                logging.info(' REASON: Matches class cancelation keyword')
                 priority_emails.append(email)
 
             # Check subject for assignment info
             elif any(keyword in email.subject.lower() for keyword in due_keywords):
+                logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                logging.info(' REASON: Matches assignment due keyword')
                 priority_emails.append(email)
 
     # All other checks
@@ -144,17 +159,24 @@ def Get_Targets(EMAIL_LIST, Is_High_Priority):
             # Check for date
             match = re.search(r'(([A-Z][a-z]*)\s([0-9].),\s([0-9]{2,4}))', email.body, flags=0)
             if match:
+                logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                logging.info(' REASON: Matches date format')
                 priority_emails.append(email)
             else:
                 # Check for time
                 match = re.search(r'(([0-9].):([0-9].))', email.body, flags=0)
                 if match:
+                    logging.info(' Adding email with id: {0} to targets'.format(email.id_code))
+                    logging.info(' REASON: Matches time format')
                     priority_emails.append(email)
 
     return priority_emails
     
 # Main Driver
 def Main():
+    logging.basicConfig(filename='Get.log', level=logging.DEBUG)
+    logging.info(' Starting Get_Emails.py')
+
     connection = Set_Connection()
     db = DB_Connect()
 
@@ -173,7 +195,11 @@ def Main():
 
     connection.close()
     connection.logout()
+    logging.info(' Closed connection to server')
     db.close()
+    logging.info(' Closed connection to Databse')
+
+    logging.info(' Exiting Get_Emails.py')
 
 if __name__ == '__main__':
     Main()
