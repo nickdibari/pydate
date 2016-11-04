@@ -7,9 +7,21 @@
 from Email_Object import Email
 from Get_Emails import Set_Priority
 
+import getpass
 import unittest
+import re
 
+# Unit Tests for Set_Connection function
+class Test_Set_Connection(unittest.TestCase):
+    def setUp(self):
+    self.user = raw_input('Please enter your email address: ')
+    self.password = getpass.getpass('Please enter your password: ')
 
+    def test_error_not_gmail(self):
+        domain = re.search('@[\w.]+', self.user) 
+        if domain.group[0] != '@gmail.com' or domain.group[0] != '@fordham':
+            
+'''
 # Unit Tests for Set_Priority function
 class Test_Set_Priority(unittest.TestCase):
     # Test domain check
@@ -59,6 +71,7 @@ class Test_Set_Priority(unittest.TestCase):
 
     	self.assertEqual(len(hi),2)
     	self.assertEqual(len(lo),1)
+'''
 
 if __name__ == '__main__':
 	unittest.main()
